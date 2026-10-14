@@ -1,0 +1,6 @@
+{
+  "name": "TutorDesk - Private Tuition & Student Manager",
+  "description": "Smart private tuition management dashboard with student tracking, attendance, monthly fee management, and weekly schedules.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

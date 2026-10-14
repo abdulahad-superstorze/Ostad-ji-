@@ -1,0 +1,243 @@
+{
+  "entities": {
+    "teacher": {
+      "title": "Teacher Profile",
+      "description": "Profile information and settings for the private tutor",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "User ID of the teacher"
+        },
+        "name": {
+          "type": "string",
+          "description": "Teacher display name",
+          "maxLength": 100
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the teacher",
+          "maxLength": 100
+        },
+        "currency": {
+          "type": "string",
+          "description": "Currency symbol such as ৳ or $",
+          "maxLength": 10
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last updated timestamp"
+        }
+      },
+      "required": ["userId", "name", "email"]
+    },
+    "student": {
+      "title": "Student",
+      "description": "Student record in the private tuition manager",
+      "type": "object",
+      "properties": {
+        "teacherId": {
+          "type": "string",
+          "description": "Owner teacher user ID",
+          "maxLength": 128
+        },
+        "name": {
+          "type": "string",
+          "description": "Full name of the student",
+          "maxLength": 120
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number of student or guardian",
+          "maxLength": 30
+        },
+        "guardianName": {
+          "type": "string",
+          "description": "Name of guardian",
+          "maxLength": 100
+        },
+        "classGrade": {
+          "type": "string",
+          "description": "Class or grade level",
+          "maxLength": 80
+        },
+        "institution": {
+          "type": "string",
+          "description": "School, college or institution name",
+          "maxLength": 120
+        },
+        "batchTime": {
+          "type": "string",
+          "description": "Batch slot or preferred study time",
+          "maxLength": 80
+        },
+        "daysPerWeek": {
+          "type": "number",
+          "description": "Total tuition days per week"
+        },
+        "weeklySchedule": {
+          "type": "string",
+          "description": "Comma-separated or JSON list of weekly class days",
+          "maxLength": 200
+        },
+        "monthlyFee": {
+          "type": "number",
+          "description": "Monthly tuition fee amount"
+        },
+        "currentMonthPaid": {
+          "type": "boolean",
+          "description": "Whether current month tuition fee has been paid"
+        },
+        "lastPaymentDate": {
+          "type": "string",
+          "description": "Date of latest fee payment",
+          "maxLength": 50
+        },
+        "attendanceToday": {
+          "type": "string",
+          "description": "Today's attendance status: present, absent, late, or none",
+          "maxLength": 20
+        },
+        "lastAttendanceDate": {
+          "type": "string",
+          "description": "Date of latest marked attendance (YYYY-MM-DD)",
+          "maxLength": 20
+        },
+        "notes": {
+          "type": "string",
+          "description": "Special remarks or notes regarding student",
+          "maxLength": 500
+        },
+        "status": {
+          "type": "string",
+          "description": "Active or inactive status",
+          "maxLength": 20
+        },
+        "joinedDate": {
+          "type": "string",
+          "description": "Date when student joined (YYYY-MM-DD)",
+          "maxLength": 30
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Record creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Record updated timestamp"
+        }
+      },
+      "required": ["teacherId", "name", "monthlyFee"]
+    },
+    "attendanceRecord": {
+      "title": "Attendance Record",
+      "description": "Historical attendance log entry for a student",
+      "type": "object",
+      "properties": {
+        "teacherId": {
+          "type": "string",
+          "description": "Owner teacher user ID",
+          "maxLength": 128
+        },
+        "studentId": {
+          "type": "string",
+          "description": "Student document ID",
+          "maxLength": 128
+        },
+        "date": {
+          "type": "string",
+          "description": "Attendance date (YYYY-MM-DD)",
+          "maxLength": 20
+        },
+        "status": {
+          "type": "string",
+          "description": "Attendance status: present, absent, or late",
+          "maxLength": 20
+        },
+        "note": {
+          "type": "string",
+          "description": "Optional notes for the session",
+          "maxLength": 300
+        },
+        "markedAt": {
+          "type": "string",
+          "description": "Timestamp when recorded"
+        }
+      },
+      "required": ["teacherId", "studentId", "date", "status"]
+    },
+    "paymentRecord": {
+      "title": "Payment Record",
+      "description": "Monthly fee payment log entry for a student",
+      "type": "object",
+      "properties": {
+        "teacherId": {
+          "type": "string",
+          "description": "Owner teacher user ID",
+          "maxLength": 128
+        },
+        "studentId": {
+          "type": "string",
+          "description": "Student document ID",
+          "maxLength": 128
+        },
+        "studentName": {
+          "type": "string",
+          "description": "Name of student at time of payment",
+          "maxLength": 120
+        },
+        "month": {
+          "type": "string",
+          "description": "Month name or code (e.g., 2026-10 or October 2026)",
+          "maxLength": 40
+        },
+        "amount": {
+          "type": "number",
+          "description": "Fee amount paid"
+        },
+        "paymentMethod": {
+          "type": "string",
+          "description": "Payment method: Cash, bKash, Nagad, Rocket, Bank",
+          "maxLength": 40
+        },
+        "date": {
+          "type": "string",
+          "description": "Payment date string (YYYY-MM-DD)",
+          "maxLength": 30
+        },
+        "note": {
+          "type": "string",
+          "description": "Transaction ID or note",
+          "maxLength": 300
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when payment logged"
+        }
+      },
+      "required": ["teacherId", "studentId", "month", "amount", "date"]
+    }
+  },
+  "firestore": {
+    "/teachers/{teacherId}": {
+      "schema": "teacher",
+      "description": "Private tutor profile settings"
+    },
+    "/students/{studentId}": {
+      "schema": "student",
+      "description": "Student roster documents with owner teacherId"
+    },
+    "/attendance/{attendanceId}": {
+      "schema": "attendanceRecord",
+      "description": "Daily attendance entries"
+    },
+    "/payments/{paymentId}": {
+      "schema": "paymentRecord",
+      "description": "Tuition fee payment history records"
+    }
+  }
+}
